@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  --color-rive-bg: #0f0f11;
+  --color-rive-panel: #19191c;
+  --color-rive-border: #2a2a2e;
+  --color-rive-accent: #3b82f6;
+  --color-rive-text: #e1e1e3;
+  --color-rive-muted: #8b8b91;
+
+  --font-sans: Inter, sans-serif;
+
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@layer base {
+  body {
+    @apply bg-rive-bg text-rive-text antialiased overflow-hidden;
+  }
+}
+
+/* Custom Scrollbar for Rive look */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #19191c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a2a2e;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3b3b40;
+}
