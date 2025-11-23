@@ -28,7 +28,7 @@ export default function OrderBook({ symbol }) {
     );
 
     return (
-        <div className="w-72 border-l border-rive-border bg-rive-panel hidden lg:flex flex-col z-20">
+        <div className="w-full lg:w-72 h-72 lg:h-auto border-t lg:border-t-0 lg:border-l border-rive-border bg-rive-panel flex flex-col z-20 shrink-0">
             <div className="p-4 border-b border-rive-border flex justify-between items-center">
                 <h3 className="text-sm font-medium text-white">Order Book</h3>
                 <span className="text-xs text-rive-muted font-mono">{symbol}</span>

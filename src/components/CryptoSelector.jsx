@@ -23,7 +23,7 @@ export default function CryptoSelector({ selectedSymbol, onSelect }) {
                 whileHover={{ scale: 1.02, backgroundColor: 'rgba(255,255,255,0.05)' }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center gap-3 px-3 py-2 rounded-xl border border-rive-border bg-rive-panel hover:border-rive-accent/50 transition-colors min-w-[180px]"
+                className="flex items-center gap-3 px-3 py-2 rounded-xl border border-rive-border bg-rive-panel hover:border-rive-accent/50 transition-colors min-w-[140px] md:min-w-[180px]"
             >
                 <div
                     className="w-8 h-8 rounded-full flex items-center justify-center border border-white/10 shadow-inner"

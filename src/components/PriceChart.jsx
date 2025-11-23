@@ -156,8 +156,24 @@ export default function PriceChart({ symbol }) {
     const priceChange = currentPrice - prevPrice;
     const percentChange = prevPrice !== 0 ? (priceChange / prevPrice) * 100 : 0;
 
-    const width = 800;
-    const height = 400;
+    const containerRef = useRef(null);
+    const [dimensions, setDimensions] = useState({ width: 800, height: 400 });
+
+    useEffect(() => {
+        if (!containerRef.current) return;
+
+        const resizeObserver = new ResizeObserver(entries => {
+            for (let entry of entries) {
+                const { width, height } = entry.contentRect;
+                setDimensions({ width, height });
+            }
+        });
+
+        resizeObserver.observe(containerRef.current);
+        return () => resizeObserver.disconnect();
+    }, []);
+
+    const { width, height } = dimensions;
 
     const pathD = useMemo(() => getPath(visibleData, width, height), [visibleData, width, height]);
     const areaD = useMemo(() => getAreaPath(visibleData, width, height), [visibleData, width, height]);
@@ -298,16 +314,17 @@ export default function PriceChart({ symbol }) {
                         >
                             <BarChart2 size={18} />
                         </button>
-                        <div className="w-[1px] h-6 bg-rive-border mx-1" />
-                        <button className="p-2 hover:bg-white/5 rounded-lg text-rive-muted hover:text-white transition-colors"><Zap size={18} /></button>
-                        <button className="p-2 hover:bg-white/5 rounded-lg text-rive-muted hover:text-white transition-colors"><Maximize2 size={18} /></button>
-                        <button className="p-2 hover:bg-white/5 rounded-lg text-rive-muted hover:text-white transition-colors"><MoreHorizontal size={18} /></button>
+                        <div className="w-[1px] h-6 bg-rive-border mx-1 hidden sm:block" />
+                        <button className="p-2 hover:bg-white/5 rounded-lg text-rive-muted hover:text-white transition-colors hidden sm:block"><Zap size={18} /></button>
+                        <button className="p-2 hover:bg-white/5 rounded-lg text-rive-muted hover:text-white transition-colors hidden sm:block"><Maximize2 size={18} /></button>
+                        <button className="p-2 hover:bg-white/5 rounded-lg text-rive-muted hover:text-white transition-colors hidden sm:block"><MoreHorizontal size={18} /></button>
                     </div>
                 </div>
             </div>
 
             {/* Chart Area */}
             <div
+                ref={containerRef}
                 className={`flex-1 relative ${isDragging ? 'cursor-grabbing' : 'cursor-crosshair'}`}
                 onWheel={handleWheel}
                 onMouseDown={handleMouseDown}
@@ -478,8 +495,8 @@ export default function PriceChart({ symbol }) {
             </div>
 
             {/* Time Controls */}
-            <div className="h-12 border-t border-rive-border flex items-center px-4 gap-2 bg-rive-panel/50">
-                <div className="flex items-center gap-2 mr-4 text-rive-muted">
+            <div className="h-12 border-t border-rive-border flex items-center px-4 gap-2 bg-rive-panel/50 overflow-x-auto no-scrollbar">
+                <div className="flex items-center gap-2 mr-4 text-rive-muted shrink-0">
                     <Clock size={16} />
                     <span className="text-xs font-medium">Interval</span>
                 </div>
